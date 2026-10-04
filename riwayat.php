@@ -26,16 +26,16 @@
                 <tbody>
                     <?php
                     // Koneksi ke database
-                    $conn = new mysqli("localhost", "username", "password", "database_name");
+                    $koneksi = new mysqli("localhost", "username", "password", "database_name");
 
                     // Cek koneksi
-                    if ($conn->connect_error) {
-                        die("Koneksi gagal: " . $conn->connect_error);
+                    if ($koneksi->connect_error) {
+                        die("Koneksi gagal: " . $koneksi->connect_error);
                     }
 
                     // Query untuk mengambil data pelanggaran
                     $sql = "SELECT * FROM pelanggaran";
-                    $result = $conn->query($sql);
+                    $result = $koneksi->query($sql);
 
                     if ($result->num_rows > 0) {
                         $no = 1;
@@ -53,7 +53,7 @@
                     }
 
                     // Tutup koneksi
-                    $conn->close();
+                    $koneksi->close();
                     ?>
                 </tbody>
             </table>
