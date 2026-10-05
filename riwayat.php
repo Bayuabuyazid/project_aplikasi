@@ -20,7 +20,6 @@
                         <th>Nama Siswa</th>
                         <th>Pelanggaran</th>
                         <th>Poin</th>
-                        <th>Tanggal</th>
                     </tr>
                 </thead>
                 <tbody>
