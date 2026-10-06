@@ -2,18 +2,20 @@
 
 include "koneksi.php";
 
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    die("Akses halaman ini melalui form tambah poin.");
+}
+
 $nama = $_POST['nama'];
 $kelas = $_POST['kelas'];
 $jurusan = $_POST['jurusan'];
 $pelanggaran = $_POST['pelanggaran'];
 $poin = $_POST['poin'];
 
-$query = "INSERT INTO data_poin_siswa 
-          (nama, kelas, jurusan, pelanggaran, poin)
-          VALUES 
+$query = "INSERT INTO data_poin_siswa
+          (Nama, Kelas, Jurusan, Pelanggaran, poin)
+          VALUES
           ('$nama', '$kelas', '$jurusan', '$pelanggaran', '$poin')";
-
-mysqli_query($koneksi, $query);
 
 if (mysqli_query($koneksi, $query)) {
     echo "Data berhasil ditambahkan!";

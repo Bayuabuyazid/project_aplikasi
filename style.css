@@ -146,7 +146,7 @@ footer {
         margin-bottom: 24px;
     }
 }
-
+ 
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
