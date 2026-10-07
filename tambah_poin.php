@@ -19,6 +19,9 @@ $query = "INSERT INTO data_poin_siswa
 
 if (mysqli_query($koneksi, $query)) {
     echo "Data berhasil ditambahkan!";
+
+    header("Location: riwayat.php");
+        exit();
 } else {
     echo "Gagal menambahkan data: " . mysqli_error($koneksi);
 }
