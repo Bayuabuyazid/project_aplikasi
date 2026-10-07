@@ -73,6 +73,7 @@
     <h2>Daftar Pelanggaran</h2>
 
     <table>
+        
 
         <thead>
             <tr>
@@ -83,6 +84,12 @@
                 <th>Pelanggaran</th>
                 <th>Poin</th>
             </tr>
+<a href="edit_poin.php?id=<?= $data['id']; ?>">Edit</a>
+
+<a href="hapus_poin.php?id=<?= $data['id']; ?>"
+   onclick="return confirm('Yakin ingin menghapus data ini?')">
+   Hapus
+</a>
         </thead>
 
         <tbody>
