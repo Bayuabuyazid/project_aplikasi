@@ -1,29 +1,23 @@
 <?php
+require 'koneksi.php';
 
-include "koneksi.php";
-
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    die("Akses halaman ini melalui form tambah poin.");
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die('Akses halaman ini melalui form tambah poin.');
 }
 
-$nama = $_POST['nama'];
-$kelas = $_POST['kelas'];
-$jurusan = $_POST['jurusan'];
-$pelanggaran = $_POST['pelanggaran'];
-$poin = $_POST['poin'];
+$nama = mysqli_real_escape_string($koneksi, $_POST['nama'] ?? '');
+$kelas = mysqli_real_escape_string($koneksi, $_POST['kelas'] ?? '');
+$jurusan = mysqli_real_escape_string($koneksi, $_POST['jurusan'] ?? '');
+$pelanggaran = mysqli_real_escape_string($koneksi, $_POST['pelanggaran'] ?? '');
+$poin = (int)($_POST['poin'] ?? 0);
 
-$query = "INSERT INTO data_poin_siswa
-          (Nama, Kelas, Jurusan, Pelanggaran, poin)
-          VALUES
-          ('$nama', '$kelas', '$jurusan', '$pelanggaran', '$poin')";
+$query = "INSERT INTO data_poin_siswa (Nama, Kelas, Jurusan, Pelanggaran, poin)
+          VALUES ('$nama', '$kelas', '$jurusan', '$pelanggaran', '$poin')";
 
 if (mysqli_query($koneksi, $query)) {
-    echo "Data berhasil ditambahkan!";
-
-    header("Location: riwayat.php");
-        exit();
-} else {
-    echo "Gagal menambahkan data: " . mysqli_error($koneksi);
+    header('Location: riwayat.php');
+    exit;
 }
 
+ die('Gagal menambahkan data: ' . mysqli_error($koneksi));
 ?>

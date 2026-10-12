@@ -1,3 +1,9 @@
+<?php
+require 'koneksi.php';
+
+$query = mysqli_query($koneksi, "SELECT * FROM data_poin_siswa ORDER BY id DESC");
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -49,6 +55,16 @@
             background-color: #f5f5f5;
         }
 
+        .action a {
+            color: #296abf;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .action a:hover {
+            text-decoration: underline;
+        }
+
         .kembali {
             display: inline-block;
             margin-top: 20px;
@@ -69,12 +85,9 @@
 </header>
 
 <section>
-
     <h2>Daftar Pelanggaran</h2>
 
     <table>
-        
-
         <thead>
             <tr>
                 <th>No</th>
@@ -83,66 +96,39 @@
                 <th>Jurusan</th>
                 <th>Pelanggaran</th>
                 <th>Poin</th>
+                <th>Aksi</th>
             </tr>
-<a href="edit_poin.php?id=<?= $data['id']; ?>">Edit</a>
-
-<a href="hapus_poin.php?id=<?= $data['id']; ?>"
-   onclick="return confirm('Yakin ingin menghapus data ini?')">
-   Hapus
-</a>
         </thead>
 
         <tbody>
-
         <?php
-
-        $koneksi = new mysqli("localhost", "root", "", "e_poin");
-
-        if ($koneksi->connect_error) {
-            die("Koneksi gagal: " . $koneksi->connect_error);
-        }
-
-        $query = $koneksi->query("SELECT * FROM data_poin_siswa");
-
         $no = 1;
 
-        if ($query->num_rows > 0) {
-
-            while ($data = $query->fetch_assoc()) {
-
+        if (mysqli_num_rows($query) > 0) {
+            while ($data = mysqli_fetch_assoc($query)) {
         ?>
-
-            <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $data['Nama']; ?></td>
-                <td><?php echo $data['Kelas']; ?></td>
-                <td><?php echo $data['Jurusan']; ?></td>
-                <td><?php echo $data['Pelanggaran']; ?></td>
-                <td><?php echo $data['poin']; ?></td>
-            </tr>
-
+                <tr>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo htmlspecialchars($data['Nama']); ?></td>
+                    <td><?php echo htmlspecialchars($data['Kelas']); ?></td>
+                    <td><?php echo htmlspecialchars($data['Jurusan']); ?></td>
+                    <td><?php echo htmlspecialchars($data['Pelanggaran']); ?></td>
+                    <td><?php echo htmlspecialchars($data['poin']); ?></td>
+                    <td class="action">
+                        <a href="edit_poin.php?id=<?php echo (int) $data['id']; ?>">Edit</a> |
+                        <a href="hapus_poin.php?id=<?php echo (int) $data['id']; ?>" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                    </td>
+                </tr>
         <?php
-
             }
-
         } else {
-
-            echo "<tr>";
-            echo "<td colspan='6'>Belum ada data</td>";
-            echo "</tr>";
-
+            echo "<tr><td colspan='7'>Belum ada data</td></tr>";
         }
-
-        $koneksi->close();
-
         ?>
-
         </tbody>
-
     </table>
 
     <a class="kembali" href="index.html">← Kembali ke Tambah Poin</a>
-
 </section>
 
 </body>

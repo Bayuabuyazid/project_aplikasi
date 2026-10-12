@@ -1,14 +1,17 @@
 <?php
+require 'koneksi.php';
 
-include "koneksi.php";
+if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
+    header('Location: riwayat.php');
+    exit;
+}
 
-$id = $_GET['id'];
+$id = (int) $_GET['id'];
 
-$query = "DELETE FROM poin WHERE id = '$id'";
+$query = "DELETE FROM data_poin_siswa WHERE id = $id";
 
 mysqli_query($koneksi, $query);
 
-header("Location: riwayat.php");
+header('Location: riwayat.php');
 exit;
-
 ?>
